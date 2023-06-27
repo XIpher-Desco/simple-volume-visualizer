@@ -106,7 +106,13 @@ def read_volume_data(stream):
     # print(decibel)
     return decibel
 
+def reset_max_value(event):
+    print(event)
+    global max_volume_value
+    max_volume_value = 0
+
 if __name__ == '__main__':
+    global max_volume_value
     max_volume_value = 0
     # pa = pyaudio.PyAudio()
     # for i in range(pa.get_device_count()):
@@ -121,7 +127,7 @@ if __name__ == '__main__':
         "640x360"
     )
     tkinter_root.title(
-        "volumemeter"
+        "volumemeter <Press Ctrl+x Reset>"
     )
 
     canvas = tkinter.Canvas(
@@ -163,5 +169,7 @@ if __name__ == '__main__':
 
     tkinter_root.after(1000, tkinter_root_repeat)
 
+    tkinter_root.bind('<Control-x>', reset_max_value)
+    
     tkinter_root.mainloop()
     audiostop(audio,stream)
