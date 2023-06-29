@@ -33,7 +33,7 @@ else:
     max_volume_str_pos = {"row": 1, "column": 1, "rowspan": 1, "columnspan": 1}
 
 # colors のソート
-config_obj['colors'].sort(key=lambda x: x['value'])
+# config_obj['colors'].sort(key=lambda x: x['value'])
 
 # スタート処理
 def audiostart():
