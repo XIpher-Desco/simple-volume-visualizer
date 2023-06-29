@@ -3,10 +3,15 @@
 実行ファイルと同階層に visualizer_config.yaml を置き、設定を変更するとボリュームのしきい値やインデックスが変更出来る。
 
 mic_index 1 は既定のデバイスなので、既定のデバイス以外が必要がなければ変更しなくて良い
+
+数字をボリュームバーの左、及び下に配置するかは、 layout プロパティを vertical または horizontal を指定する
 ```
 alert: 80
-mic_index: 1
 warning: 70
+layout: "horizontal"
+# layout: "vertical"
+
+mic_index: 1
 ```
 
 mic_index を変更する際は、 [オーディオデバイスリスト化ツール](./bin/list_audio.exe)を使用することで、インデックスと名前が分かります。

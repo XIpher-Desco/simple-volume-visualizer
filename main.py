@@ -17,10 +17,23 @@ except Exception as e:
     print('Exception occurred while loading YAML...', file=sys.stderr)
     print(e, file=sys.stderr)
     # ファイル開けなければ、作り直す
-    config_obj = {'alert': 80, 'warning': 70, 'mic_index': 1}
+    config_obj = {'alert': 80, 'warning': 70, 'mic_index': 1, 'layout': "horizontal"}
     with open(config_file_name, 'w', encoding='utf-8') as file:
         yaml.dump(config_obj, file, encoding='utf-8')
     # sys.exit(1)
+
+# layout
+if config_obj["layout"] == "horizontal":
+    volume_bar_pos = {"row": 0, "column": 1,"rowspan": 2, "columnspan": 1}
+    current_volume_str_pos = {"row": 0, "column": 0, "rowspan": 1, "columnspan": 1}
+    max_volume_str_pos = {"row": 1, "column": 0, "rowspan": 1, "columnspan": 1}
+else:
+    volume_bar_pos = {"row": 0, "column": 0,"rowspan": 1, "columnspan": 2}
+    current_volume_str_pos = {"row": 1, "column": 0, "rowspan": 1, "columnspan": 1}
+    max_volume_str_pos = {"row": 1, "column": 1, "rowspan": 1, "columnspan": 1}
+
+# colors のソート
+config_obj['colors'].sort(key=lambda x: x['value'])
 
 # スタート処理
 def audiostart():
@@ -124,7 +137,7 @@ if __name__ == '__main__':
     tkinter_root.configure(bg="green", bd=10)
 
     tkinter_root.geometry(
-        "640x360"
+        "640x300"
     )
     tkinter_root.title(
         "volumemeter <Press Ctrl+x Reset>"
@@ -140,10 +153,15 @@ if __name__ == '__main__':
         highlightthickness=0
     )
 
-    canvas.grid()
+    canvas.grid(
+        row = volume_bar_pos['row'],
+        column = volume_bar_pos['column'],
+        rowspan = volume_bar_pos['rowspan'],
+        columnspan = volume_bar_pos['columnspan'],
+    )
 # 現在ボリュームの数値
     current_volume_text = tkinter.StringVar()
-    current_volume_text.set("aaaaaaaaaaaaaaaaaaaaaa")
+    current_volume_text.set("00")
     current_volume_label_font=font.Font(size=80, family='arial', )
     current_volume_label = tkinter.Label(
         tkinter_root,
@@ -152,11 +170,16 @@ if __name__ == '__main__':
         bg="green",
         font=current_volume_label_font,
     )
-    current_volume_label.grid()
+    current_volume_label.grid(
+        row = current_volume_str_pos['row'],
+        column = current_volume_str_pos['column'],
+        rowspan = current_volume_str_pos['rowspan'],
+        columnspan = current_volume_str_pos['columnspan'],
+    )
 
 # 最大ボリュームの数値
     max_volume_text = tkinter.StringVar()
-    max_volume_text.set("aaaaaaaaaaaaaaaaaaaaaa")
+    max_volume_text.set("00")
     max_volume_label_font=font.Font(size=80, family='arial', )
     max_volume_label = tkinter.Label(
         tkinter_root,
@@ -165,7 +188,12 @@ if __name__ == '__main__':
         bg="green",
         font=max_volume_label_font,
     )
-    max_volume_label.grid()
+    max_volume_label.grid(
+        row = max_volume_str_pos['row'],
+        column = max_volume_str_pos['column'],
+        rowspan = max_volume_str_pos['rowspan'],
+        columnspan = current_volume_str_pos['columnspan'],
+    )
 
     tkinter_root.after(1000, tkinter_root_repeat)
 
