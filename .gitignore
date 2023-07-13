@@ -2,3 +2,4 @@ output.yaml
 build
 dist
 *.spec
+bin/visualizer_config.yaml

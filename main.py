@@ -115,6 +115,9 @@ def read_volume_data(stream):
 
     data = stream.read(1024)
     rms = audioop.rms(data,2)
+    if rms == 0:
+        rms = 1
+        
     decibel = 20 * numpy.log10(rms)
     # print(decibel)
     return decibel
