@@ -24,8 +24,11 @@ layout: "horizontal"
 
 mic_index: 1
 ```
+### horizontal
+![横配置](image/horizontal.png)
 
-![横配置](image/horizontal.png) ![縦配置](image/vertical.png)
+### vertical
+![縦配置](image/vertical.png)
 
 mic_index を変更する際は、 [オーディオデバイスリスト化ツール](./bin/list_audio.exe)を使用することで、インデックスと名前が分かります。
 
